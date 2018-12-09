@@ -1,5 +1,4 @@
 {% extends 'crypto/base.html' %}
-
 {% block content %}
 
     <div class="jumbotron">
@@ -20,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-      {% for key,value in price.DISPLAY.items %}
+      {% for key,value in crypto_list.DISPLAY.items %}
         <tr>
           <td>{{ key }}</td>
           <td>{{ value.USD.PRICE }}</td>
