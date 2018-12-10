@@ -22,5 +22,14 @@ def prices(request):
     return render(request, 'crypto/prices.html', {'quote': quote, 'coin': coin})
 
 def portfolio(request):
-    notfound = "Portfolio feature coming soon"
-    return render(request, 'crypto/portfolio.html', {'notfound': notfound })
+    if request.method == 'POST':
+        portfolio_id = request.POST['portfolio_id']
+        try:
+            portfolio_password = request.POST['portfolio_password']
+        except:
+            return render(request, 'crypto/portfolio.html', {'portfolio_id': portfolio_id})
+        else:
+            return render(request, 'crypto/portfolio.html', {'portfolio_id': portfolio_id, 'portfolio_password': portfolio_password})
+    else:
+        notfound = "Portfolio feature coming soon"
+        return render(request, 'crypto/portfolio.html', {'notfound': notfound })
