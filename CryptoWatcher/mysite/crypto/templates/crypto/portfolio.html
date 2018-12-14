@@ -2,41 +2,37 @@
 {% block content %}
 
 <div class="jumbotron">
-  <h1 class="display-4">Crypto portfolio</h1><br>
-  <p class="lead">Create and view your crypto portfolio online here at Crypto Watcher</p><br>
+  <h1 class="display-4">Crypto portfolio</h1>
+  <p class="lead">Create and view your crypto portfolio online here at Crypto Watcher</p>
   <p>Easy, fast and secure!</p>
+  <a class="btn btn-secondary btn-lg" href="{% url 'crypto:portfolio_create' %}" role="button">Create portfolio</a>
 </div>
 
-{% if portfolio_password %}
+{% if portfolio_id %}
 
-<h1>Portfolio feature coming soon</h1>
-
-
-{% elif portfolio_id %}
-
-<form method="POST" action="{% url 'crypto:portfolio' %}">
-  <div class="form-group mb-2">
-    <label for="staticEmail2">Portfolio ID:</label>
-    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{ portfolio_id }}" name="portfolio_id">
+<form method="POST" action="{% url 'crypto:portfolio_edit' portfolio_id%}">
+  <div class="form-group row">
+    <label for="staticID" class="col-lg-2 col-form-label">Portfolio ID:</label>
+    <input type="text" readonly class="form-control-plaintext col-lg-3" id="staticID" value="{{ portfolio_id }}">
   </div>
-  <div class="form-group">
+  <div class="form-group row">
     {% csrf_token %}
-    <label for="inputPassword">Portfolio password</label>
-    <input class="form-control mr-sm-2" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
+    <label for="inputPassword" class="col-lg-2 col-form-label">Portfolio password:</label>
+    <input class="form-control col-lg-3" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
   </div>
-  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Confirm</button>
+  <button class="btn btn-secondary" type="submit">Confirm</button>
 </form>
 
 
 {% elif notfound %}
 
 <form  method="POST" action="{% url 'crypto:portfolio' %}">
-  <div class="form-group">
+  <div class="form-group row">
     {% csrf_token %}
-    <label for="portfolioSearch">Enter portfolio id</label>
-    <input class="form-control mr-sm-2" type="search" id="portfolioSearch" placeholder="ID" aria-label="Search" name="portfolio_id">
+    <label for="portfolioSearch" class="col-lg-2 col-form-label">Enter portfolio id:</label>
+    <input class="form-control col-lg-3" type="search" id="portfolioSearch" placeholder="ID" aria-label="Search" name="portfolio_id">
   </div>
-  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+  <button class="btn btn-secondary" type="submit">Search</button>
 </form>
 
 {% endif %}

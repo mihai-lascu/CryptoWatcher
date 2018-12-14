@@ -24,12 +24,17 @@ def prices(request):
 def portfolio(request):
     if request.method == 'POST':
         portfolio_id = request.POST['portfolio_id']
-        try:
-            portfolio_password = request.POST['portfolio_password']
-        except:
-            return render(request, 'crypto/portfolio.html', {'portfolio_id': portfolio_id})
-        else:
-            return render(request, 'crypto/portfolio.html', {'portfolio_id': portfolio_id, 'portfolio_password': portfolio_password})
+        return render(request, 'crypto/portfolio.html', {'portfolio_id': portfolio_id})
     else:
         notfound = "Portfolio feature coming soon"
         return render(request, 'crypto/portfolio.html', {'notfound': notfound })
+
+def portfolioCreate(request):
+    portfolio_id = 1234
+    return render(request, 'crypto/portfolio_create.html', {'portfolio_id': portfolio_id })
+
+def portfolioEdit(request, portfolio_id):
+    portfolio_password = "fake"
+    if request.method == 'POST':
+        portfolio_password = request.POST['portfolio_password']
+    return render(request, 'crypto/portfolio_edit.html', {'portfolio_id': portfolio_id, 'portfolio_password': portfolio_password})
