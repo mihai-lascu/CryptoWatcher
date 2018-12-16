@@ -5,4 +5,32 @@ Your portfolio id is {{ portfolio_id }}
 <br>
 Your portfolio password is {{ portfolio_password }}
 
+{% if password_correct %}
+{% elif password_incorrect %}
+{% elif type_password %}
+{% endif %}
+
+<!--
+<form>
+    <div class="form-group row">
+      <label for="coin" class="col-lg-2 col-form-label">Coin symbol:</label>
+      <div class="col-lg-3">
+        <input type="email" class="form-control" id="coin" placeholder="Enter coin">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="amount" class="col-lg-2 col-form-label">Amount:</label>
+      <div class="col-lg-3">
+        <input type="email" class="form-control" id="amount" placeholder="Enter coin amount">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="investment" class="col-lg-2 col-form-label">Invested:</label>
+      <div class="col-lg-3">
+        <input type="email" class="form-control" id="investment" placeholder="Enter $ invested">
+      </div>
+    </div>
+</form>
+-->
+
 {% endblock %}
