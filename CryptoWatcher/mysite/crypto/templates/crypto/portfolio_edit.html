@@ -1,13 +1,36 @@
 {% extends 'crypto/base.html' %}
 {% block content %}
 
-Your portfolio id is {{ portfolio_id }}
-<br>
-Your portfolio password is {{ portfolio_password }}
-
 {% if password_correct %}
+
+  Your portfolio id is {{ portfolio_id }}
+  <br>
+  Hello and welcome to your portfolio
+
 {% elif password_incorrect %}
-{% elif type_password %}
+
+  <p><strong>Wrong password. Try again.</strong></p>
+
+  <form method="POST" action="{% url 'crypto:portfolio_edit' portfolio_id%}">
+    <div class="form-group row">
+      {% csrf_token %}
+      <label for="inputPassword" class="col-lg-2 col-form-label">Portfolio password:</label>
+      <input class="form-control col-lg-3" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
+    </div>
+    <button class="btn btn-secondary" type="submit">Submit</button>
+  </form>
+
+{% else %}
+  <p><strong>{{ type_password }}</strong></p>
+  <form method="POST" action="{% url 'crypto:portfolio_edit' portfolio_id%}">
+    <div class="form-group row">
+      {% csrf_token %}
+      <label for="inputPassword" class="col-lg-2 col-form-label">Portfolio password:</label>
+      <input class="form-control col-lg-3" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
+    </div>
+    <button class="btn btn-secondary" type="submit">Submit</button>
+  </form>
+
 {% endif %}
 
 <!--
