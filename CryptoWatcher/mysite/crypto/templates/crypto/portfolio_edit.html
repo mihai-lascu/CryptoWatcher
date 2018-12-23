@@ -1,59 +1,73 @@
 {% extends 'crypto/base.html' %}
 {% block content %}
-
-{% if password_correct %}
-
-  Your portfolio id is {{ portfolio_id }}
-  <br>
-  Hello and welcome to your portfolio
-
-{% elif password_incorrect %}
-
-  <p><strong>Wrong password. Try again.</strong></p>
-
-  <form method="POST" action="{% url 'crypto:portfolio_edit' portfolio_id%}">
-    <div class="form-group row">
-      {% csrf_token %}
-      <label for="inputPassword" class="col-lg-2 col-form-label">Portfolio password:</label>
-      <input class="form-control col-lg-3" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
+<h3>{{ portfolio.name }}</h3><br>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Coin symbol</th>
+      <th scope="col">$ Invested</th>
+      <th scope="col">Coin amount</th>
+      <th scope="col">Current Price</th>
+      <th scope="col">Break-even price</th>
+      <th scope="col">Worth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<form method="post">{% csrf_token %}
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <input type="text" class="form-control" aria-describedby="portfolioNameHelp" id="portfolioName" placeholder="New name" name="change_name">
+      <small class="form-text text-muted" id="portfolioNameHelp">Change portolio name</small>
     </div>
-    <button class="btn btn-secondary" type="submit">Submit</button>
-  </form>
-
-{% else %}
-  <p><strong>{{ type_password }}</strong></p>
-  <form method="POST" action="{% url 'crypto:portfolio_edit' portfolio_id%}">
-    <div class="form-group row">
-      {% csrf_token %}
-      <label for="inputPassword" class="col-lg-2 col-form-label">Portfolio password:</label>
-      <input class="form-control col-lg-3" type="password" id="inputPassword" placeholder="Password" name="portfolio_password">
-    </div>
-    <button class="btn btn-secondary" type="submit">Submit</button>
-  </form>
-
-{% endif %}
-
-<!--
-<form>
-    <div class="form-group row">
-      <label for="coin" class="col-lg-2 col-form-label">Coin symbol:</label>
-      <div class="col-lg-3">
-        <input type="email" class="form-control" id="coin" placeholder="Enter coin">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="amount" class="col-lg-2 col-form-label">Amount:</label>
-      <div class="col-lg-3">
-        <input type="email" class="form-control" id="amount" placeholder="Enter coin amount">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="investment" class="col-lg-2 col-form-label">Invested:</label>
-      <div class="col-lg-3">
-        <input type="email" class="form-control" id="investment" placeholder="Enter $ invested">
-      </div>
-    </div>
+    <button type="submit" class="btn btn-secondary mb-4">Change</button>
+  </div>
 </form>
--->
+<br>
+<form>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <input type="text" class="form-control" aria-describedby="symbolHelp" id="coinSymbol" placeholder="Coin symbol">
+      <small class="form-text text-muted" id="symbolHelp">Enter coin symbol</small>
+    </div>
+    <div class="col-auto my-1">
+      <input type="text" class="form-control" aria-describedby="investedHelp" id="invested" placeholder="$ invested">
+      <small class="form-text text-muted" id="investedHelp">Enter $ invested</small>
+    </div>
+    <div class="col-auto my-1">
+      <input type="text" class="form-control" aria-describedby="coinAmountHelp" id="coinAmount" placeholder="Coin amount">
+      <small class="form-text text-muted" id="coinAmountHelp">Enter coin amount</small>
+    </div>
+    <button type="submit" class="btn btn-secondary mb-4">Add to portfolio</button>
+  </div>
+</form>
+<br>
+<form>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2 sr-only" for="removeCoin">Preference</label>
+      <select class="custom-select mr-sm-2" id="removeCoin">
+        <option selected>Choose...</option>
+        <option value="1">One</option>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-secondary">Remove coin</button>
+    </div>
+  </div>
+</form>
+<br>
+<form method="post">{% csrf_token %}
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-secondary" name="delete_portfolio">Delete portfolio</button>
+    </div>
+  </div>
+</form>
 
 {% endblock %}
