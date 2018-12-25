@@ -13,9 +13,16 @@
     </tr>
   </thead>
   <tbody>
+    {% for coin in crypto_coins %}
     <tr>
-      <td></td>
+      <td>{{ coin.coin_symbol }}</td>
+      <td>{{ coin.coin_investment }}</td>
+      <td>{{ coin.coin_amount }}</td>
+      <td>{{ coin.price }} $</td>
+      <td>{{ coin.break_even_price }} $</td>
+      <td>{{ coin.worth }} $</td>
     </tr>
+    {% endfor %}
   </tbody>
 </table>
 <br>
@@ -29,31 +36,33 @@
   </div>
 </form>
 <br>
-<form>
+<form method="post">{% csrf_token %}
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
-      <input type="text" class="form-control" aria-describedby="symbolHelp" id="coinSymbol" placeholder="Coin symbol">
+      <input type="text" class="form-control" aria-describedby="symbolHelp" id="coinSymbol" placeholder="Coin symbol" name="coin_symbol">
       <small class="form-text text-muted" id="symbolHelp">Enter coin symbol</small>
     </div>
     <div class="col-auto my-1">
-      <input type="text" class="form-control" aria-describedby="investedHelp" id="invested" placeholder="$ invested">
+      <input type="text" class="form-control" aria-describedby="investedHelp" id="invested" placeholder="$ invested" name="amount_invested">
       <small class="form-text text-muted" id="investedHelp">Enter $ invested</small>
     </div>
     <div class="col-auto my-1">
-      <input type="text" class="form-control" aria-describedby="coinAmountHelp" id="coinAmount" placeholder="Coin amount">
+      <input type="text" class="form-control" aria-describedby="coinAmountHelp" id="coinAmount" placeholder="Coin amount" name="coin_amount">
       <small class="form-text text-muted" id="coinAmountHelp">Enter coin amount</small>
     </div>
-    <button type="submit" class="btn btn-secondary mb-4">Add to portfolio</button>
+    <button type="submit" class="btn btn-secondary mb-4" name="add_coin">Add to portfolio</button>
   </div>
 </form>
 <br>
-<form>
+<form method="post">{% csrf_token %}
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only" for="removeCoin">Preference</label>
-      <select class="custom-select mr-sm-2" id="removeCoin">
+      <select class="custom-select mr-sm-2" id="removeCoin" name="remove_coin">
         <option selected>Choose...</option>
-        <option value="1">One</option>
+        {% for coin in crypto_coins %}
+        <option value={{ coin.id }}>{{ coin.coin_symbol }}</option>
+        {% endfor %}
       </select>
     </div>
     <div class="col-auto my-1">

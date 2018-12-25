@@ -26,9 +26,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-        </tr>
+        {% for key, coin_sets in crypto_coins.items %}
+          {% if key == portfolio.id %}
+            {% for coin in coin_sets %}
+              <tr>
+                <td>{{ coin.coin_symbol }}</td>
+                <td>{{ coin.coin_investment }}</td>
+                <td>{{ coin.coin_amount }}</td>
+                <td>{{ coin.price }} $</td>
+                <td>{{ coin.break_even_price }} $</td>
+                <td>{{ coin.worth }} $</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       </tbody>
     </table><br><br><br>
   {% endfor %}

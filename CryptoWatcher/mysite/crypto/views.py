@@ -32,13 +32,17 @@ def portfolio(request):
 def portfolioProfile(request):
     current_user = request.user
     portfolios = current_user.portfolio_set.all()
-    return render(request, 'crypto/portfolio_profile.html', { 'portfolios': portfolios })
+    crypto_coins = {}
+    for p in portfolios:
+        crypto_coins[p.id] = p.cryptocurrency_set.all()
+    return render(request, 'crypto/portfolio_profile.html', { 'portfolios': portfolios, 'crypto_coins': crypto_coins })
 
 @login_required
 def portfolioEdit(request, portfolio_id):
     current_user = request.user
     try:
         portfolio = current_user.portfolio_set.get(pk=portfolio_id)
+        crypto_coins = portfolio.cryptocurrency_set.all()
     except (KeyError, Portfolio.DoesNotExist):
         return HttpResponse("I'm sorry, that portfolio is not yours")
     else:
@@ -50,8 +54,15 @@ def portfolioEdit(request, portfolio_id):
                 portfolio.name = request.POST['change_name']
                 portfolio.save()
                 return redirect(reverse('crypto:edit', args=(portfolio.id,)))
+            elif 'add_coin' in request.POST.keys():
+                portfolio.cryptocurrency_set.create(coin_symbol=request.POST['coin_symbol'].upper(), coin_investment=request.POST['amount_invested'], coin_amount=request.POST['coin_amount'])
+                return redirect(reverse('crypto:edit', args=(portfolio.id,)))
+            elif 'remove_coin' in request.POST.keys():
+                coin = portfolio.cryptocurrency_set.get(pk=request.POST['remove_coin'])
+                coin.delete()
+                return redirect(reverse('crypto:edit', args=(portfolio.id,)))
         else:
-            return render(request, 'crypto/portfolio_edit.html', { 'portfolio': portfolio })
+            return render(request, 'crypto/portfolio_edit.html', { 'portfolio': portfolio, 'crypto_coins': crypto_coins })
 
 @login_required
 def portfolioCreate(request):
