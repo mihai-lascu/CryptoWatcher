@@ -18,7 +18,7 @@
       <thead>
         <tr>
           <th scope="col">Coin symbol</th>
-          <th scope="col">$ Invested</th>
+          <th scope="col">Invested $</th>
           <th scope="col">Coin amount</th>
           <th scope="col">Current Price</th>
           <th scope="col">Break-even price</th>
@@ -31,7 +31,7 @@
             {% for coin in coin_sets %}
               <tr>
                 <td>{{ coin.coin_symbol }}</td>
-                <td>{{ coin.coin_investment }}</td>
+                <td>{{ coin.coin_investment }} $</td>
                 <td>{{ coin.coin_amount }}</td>
                 <td>{{ coin.price }} $</td>
                 <td>{{ coin.break_even_price }} $</td>
