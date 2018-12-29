@@ -44,11 +44,13 @@ def portfolioEdit(request, portfolio_id):
         portfolio = current_user.portfolio_set.get(pk=portfolio_id)
         crypto_coins = portfolio.cryptocurrency_set.all()
     except (KeyError, Portfolio.DoesNotExist):
-        return HttpResponse("I'm sorry, that portfolio is not yours")
+        messages.info(request, "I'm sorry, that portfolio is not yours")
+        return redirect('crypto:profile')
     else:
         if request.method == 'POST':
             if 'delete_portfolio' in request.POST.keys():
                 portfolio.delete()
+                messages.info(request, "Portfolio %s deleted" % portfolio.name)
                 return redirect('crypto:profile')
             elif 'change_name' in request.POST.keys():
                 portfolio.name = request.POST['change_name']
