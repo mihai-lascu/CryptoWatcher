@@ -33,7 +33,6 @@ def portfolioProfile(request):
     current_user = request.user
     portfolios = current_user.portfolio_set.all()
     crypto_coins = {}
-    #harder
     for p in portfolios:
         crypto_coins[p.id] = p.cryptocurrency_set.all()
     return render(request, 'crypto/portfolio_profile.html', { 'portfolios': portfolios, 'crypto_coins': crypto_coins })
