@@ -1,0 +1,14 @@
+.portfolio__example {
+    content: url("images/portfolio3.png");
+    max-width: 75%;
+}
+
+.portfolio__photo1 {
+    content: url("images/portfolio1.png");
+    max-width: 75%;
+}
+
+.portfolio__photo2 {
+    content: url("images/portfolio2.png");
+    max-width: 75%;
+}

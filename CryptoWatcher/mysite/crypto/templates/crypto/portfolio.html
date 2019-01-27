@@ -1,16 +1,43 @@
 {% extends 'crypto/base.html' %}
 {% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
 
-<div class="jumbotron">
-  <h1 class="display-4">Crypto portfolio</h1>
-  <p class="lead">Create and view your crypto portfolio online here at Crypto Watcher</p>
-  <p>Easy, fast and secure!</p>
-  {% if user.is_authenticated %}
-  <a class="btn btn-secondary btn-lg" href="{% url 'crypto:create' %}" role="button">Create portfolio</a>
-  {% else %}
-  <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Log in and view your portfolios</a><br><br>
-  <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Sign up and create a portfolio</a>
-  {% endif %}
-</div>
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/style.css' %}">
+
+    <meta charset="utf-8">
+    <title>Portfolio</title>
+  </head>
+  <body>
+
+    <div class="jumbotron">
+      <h1 class="display-4">Crypto portfolio</h1>
+      <p class="lead">Create and view your crypto portfolio online here at Crypto Watcher</p>
+      <p>Easy, fast and secure!</p>
+      {% if user.is_authenticated %}
+      <a class="btn btn-secondary btn-lg" href="{% url 'crypto:create' %}" role="button">Create portfolio</a>
+      {% else %}
+      <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Log in and view your portfolios</a><br><br>
+      <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Sign up and create a portfolio</a>
+      {% endif %}
+    </div>
+
+    <div >
+      <h3>View your portfolios</h3>
+      <img class="portfolio__example">
+      <br><br><br>
+      <h3>Edit your portfolios</h3>
+      <ul>
+          <li>Set a name for your portfolio</li>
+          <img class="portfolio__photo1">
+          <li>Add/Remove crypto</li>
+          <img class="portfolio__photo2">
+      </ul>
+    </div>
+
+  </body>
+</html>
 
 {% endblock %}

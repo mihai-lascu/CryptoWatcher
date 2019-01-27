@@ -13,7 +13,7 @@ import requests
 #my_api_key-->&api_key=(4a6fae42c3f554998ee78a205df72209060cb6ce2c616dcefba56d9450f98f06)
 
 def home(request):
-    crypto_list_request = requests.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,XRP,ETH,EOS,XLM,LTC,TRX,ADA,IOT,XMR,DASH,XEM,ETC&tsyms=USD")
+    crypto_list_request = requests.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,XRP,ETH,EOS,TRX,LTC,XLM,ADA,IOT,XMR,DASH,NEO,XEM&tsyms=USD")
     crypto_list = json.loads(crypto_list_request.content)
     news_request = requests.get("https://min-api.cryptocompare.com/data/v2/news/?lang=EN")
     news = json.loads(news_request.content)
